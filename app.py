@@ -5,6 +5,7 @@ import pandas as pd # NOVO: Importar a biblioteca pandas
 from datetime import datetime # NOVO: Para usar a data no nome do arquivo
 import os
 from slack import enviar_planilha_para_slack
+from datetime import datetime, timedelta
 
 
 # --- 1. CONFIGURAÇÃO ---
@@ -17,12 +18,35 @@ HEADERS = {
     'Cookie': os.getenv('COOKIE')
 }
 
+
+hoje = datetime.today()
+dia_da_semana = hoje.weekday()  # 0 = segunda, 1 = terça, ..., 5 = sexta, 6 = sábado, 7 = domingo
+
+# Lógica para determinar data_inicio e data_fim
+if dia_da_semana == 0:  # Segunda-feira
+    data_fim = hoje - timedelta(days=2)  # Sexta-feira
+    data_inicio = hoje - timedelta(days=3)  # Sábado
+elif dia_da_semana in [1, 2, 3, 4]:  # De terça a sexta-feira
+    data_fim = hoje - timedelta(days=2)  # Ontem
+    data_inicio = hoje - timedelta(days=2)  # Anteontem
+# Caso seja sábado ou domingo, não gera relatório
+elif dia_da_semana in [5, 6]:  # Sábado ou Domingo
+    print("Não há relatório a ser gerado hoje. Esperando até segunda-feira.")
+    exit()
+
+
+# Formatar as datas
+data_inicio = data_inicio.strftime("%Y-%m-%d")
+data_fim = data_fim.strftime("%Y-%m-%d")
+
+
+
 # Parâmetros da busca inicial. Ajuste conforme precisar.
 PARAMS = {
     'page': 1,
     'limit': 100,
-    'dataCriacaoInicio': '2025-06-18', # Data de hoje para o exemplo
-    'dataCriacaoFim': '2025-06-18',
+    'dataCriacaoInicio': f'{data_inicio}', # Data de hoje para o exemplo
+    'dataCriacaoFim': f'{data_fim}',
     'status': 1
 }
 
