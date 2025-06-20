@@ -28,4 +28,4 @@ jobs:
           AUTHORIZATION: ${{ secrets.AUTHORIZATION }}
           COOKIE: ${{ secrets.COOKIE }}
         run: |
-          python main.py
+          python app.py
