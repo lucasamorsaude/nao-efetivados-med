@@ -1,18 +1,14 @@
 import requests
 import json
 import time
-import pandas as pd # NOVO: Importar a biblioteca pandas
-from datetime import datetime # NOVO: Para usar a data no nome do arquivo
+import pandas as pd 
+from datetime import datetime 
 import os
 from slack import enviar_planilha_para_slack
 from datetime import datetime, timedelta
 
 
 # --- 1. CONFIGURAÇÃO ---
-# Substitua os valores abaixo pelos que você copiou do seu navegador
-
-# Cole aqui o conteúdo do 'Authorization' e do 'Cookie' que você encontrou
-# na aba Rede (F12) -> Request Headers. ESTA É A PARTE MAIS IMPORTANTE.
 HEADERS = {
     'Authorization': os.getenv('AUTHORIZATION'),
     'Cookie': os.getenv('COOKIE')
@@ -26,11 +22,11 @@ dia_da_semana = hoje.weekday()  # 0 = segunda, 1 = terça, ..., 5 = sexta, 6 = s
 if dia_da_semana == 0:  # Segunda-feira
     data_fim = hoje - timedelta(days=2)  # Sexta-feira
     data_inicio = hoje - timedelta(days=3)  # Sábado
-elif dia_da_semana in [1, 2, 3, 4]:  # De terça a sexta-feira
+elif dia_da_semana in [1, 2, 3, 4, 5]:  # De terça a sábado
     data_fim = hoje - timedelta(days=1)  # Ontem
     data_inicio = hoje - timedelta(days=1)  # Anteontem
 # Caso seja sábado ou domingo, não gera relatório
-elif dia_da_semana in [5, 6]:  # Sábado ou Domingo
+elif dia_da_semana in [6]:  # Sábado ou Domingo
     print("Não há relatório a ser gerado hoje. Esperando até segunda-feira.")
     exit()
 
