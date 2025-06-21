@@ -25,7 +25,8 @@ jobs:
       - name: Executar script
         env:
           SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}
-          AUTHORIZATION: ${{ secrets.AUTHORIZATION }}
+          AMEI_USERNAME: ${{ secrets.AMEI_USERNAME }}
+          AMEI_PASSWORD: ${{ secrets.AMEI_PASSWORD }}
           COOKIE: ${{ secrets.COOKIE }}
         run: |
           python app.py

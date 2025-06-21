@@ -6,11 +6,14 @@ from datetime import datetime
 import os
 from slack import enviar_planilha_para_slack
 from datetime import datetime, timedelta
+from login_auth import get_auth_new
 
+
+auth_token = get_auth_new()
 
 # --- 1. CONFIGURAÇÃO ---
 HEADERS = {
-    'Authorization': os.getenv('AUTHORIZATION'),
+    'Authorization': f'Bearer {auth_token}',
     'Cookie': os.getenv('COOKIE')
 }
 
