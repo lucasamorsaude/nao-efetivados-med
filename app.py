@@ -7,6 +7,7 @@ import os
 from slack import enviar_planilha_para_slack
 from datetime import datetime, timedelta
 from login_auth import get_auth_new
+from link_pagamento import gerar_links_de_pagamento
 
 
 auth_token = get_auth_new()
@@ -23,11 +24,11 @@ dia_da_semana = hoje.weekday()  # 0 = segunda, 1 = terça, ..., 5 = sexta, 6 = s
 
 # Lógica para determinar data_inicio e data_fim
 if dia_da_semana == 0:  # Segunda-feira
-    data_fim = hoje - timedelta(days=2)  # Sexta-feira
-    data_inicio = hoje - timedelta(days=3)  # Sábado
+    data_fim = hoje - timedelta(days=2)  # Sábado
+    data_inicio = hoje - timedelta(days=2)  # Sábado
 elif dia_da_semana in [1, 2, 3, 4, 5]:  # De terça a sábado
     data_fim = hoje - timedelta(days=1)  # Ontem
-    data_inicio = hoje - timedelta(days=1)  # Anteontem
+    data_inicio = hoje - timedelta(days=1)  # Ontem
 # Caso seja sábado ou domingo, não gera relatório
 elif dia_da_semana in [6]:  # Sábado ou Domingo
     print("Não há relatório a ser gerado hoje. Esperando até segunda-feira.")
@@ -185,6 +186,13 @@ if __name__ == "__main__":
             df.to_excel(nome_arquivo, index=False)
             
             print(f"\n✅ Dados salvos com sucesso no arquivo: {nome_arquivo}")
+
+            try:
+                gerar_links_de_pagamento()
+                print("Links de pagamento anexados")
+
+            except:
+                print("Erro ao gerar links de pagamento")
 
             try:
                 enviar_planilha_para_slack()
