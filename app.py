@@ -191,14 +191,17 @@ if __name__ == "__main__":
                 gerar_links_de_pagamento()
                 print("Links de pagamento anexados")
 
+
+                try:
+                    enviar_planilha_para_slack()
+                    print("Planilha Enviada pelo Slack")
+
+                except:
+                    print("Erro ao enviar planilha pelo Slack")
+
             except:
                 print("Erro ao gerar links de pagamento")
 
-            try:
-                enviar_planilha_para_slack()
-                print("Planilha Enviada pelo Slack")
-
-            except:
-                print("Erro ao enviar planilha pelo Slack")
+            
         else:
             print("\nNenhum dado detalhado foi extraído para gerar o arquivo.")

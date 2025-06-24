@@ -28,5 +28,8 @@ jobs:
           AMEI_USERNAME: ${{ secrets.AMEI_USERNAME }}
           AMEI_PASSWORD: ${{ secrets.AMEI_PASSWORD }}
           COOKIE: ${{ secrets.COOKIE }}
+          MAISTODOS_EMAIL: ${{ secrets.MAISTODOS_EMAIL }}
+          MAISTODOS_SENHA: ${{ secrets.MAISTODOS_SENHA }}
+
         run: |
           python app.py
