@@ -22,6 +22,9 @@ jobs:
         run: |
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
+      - name: Install Playwright Browsers
+        run: playwright install --with-deps
+
       - name: Executar script
         env:
           SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}

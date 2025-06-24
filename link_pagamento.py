@@ -16,8 +16,6 @@ ESPERA_ENTRE_TENTATIVAS = 5
 def gerar_links_de_pagamento():
     # --- INÍCIO DO SCRIPT ---
     try:
-        # AJUSTE: Forçamos a coluna 'cpf_paciente' a ser lida como texto (str)
-        # para preservar os zeros à esquerda e a formatação.
         df = pd.read_excel(ARQUIVO_ENTRADA, dtype={'cpf_paciente': str, 'celular_paciente': str})
         print(f"Planilha '{ARQUIVO_ENTRADA}' lida com sucesso. {len(df)} linhas para processar.")
 
