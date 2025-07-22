@@ -7,7 +7,6 @@ import os
 from slack import enviar_planilha_para_slack
 from datetime import datetime, timedelta
 from login_auth import get_auth_new
-from link_pagamento import gerar_links_de_pagamento
 
 
 auth_token = get_auth_new()
