@@ -187,20 +187,16 @@ if __name__ == "__main__":
             
             print(f"\n✅ Dados salvos com sucesso no arquivo: {nome_arquivo}")
 
+
+
             try:
-                gerar_links_de_pagamento()
-                print("Links de pagamento anexados")
-
-
-                try:
-                    enviar_planilha_para_slack()
-                    print("Planilha Enviada pelo Slack")
-
-                except:
-                    print("Erro ao enviar planilha pelo Slack")
+                enviar_planilha_para_slack()
+                print("Planilha Enviada pelo Slack")
 
             except:
-                print("Erro ao gerar links de pagamento")
+                print("Erro ao enviar planilha pelo Slack")
+
+
 
             
         else:
